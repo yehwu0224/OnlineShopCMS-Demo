@@ -1,0 +1,64 @@
+﻿@using OnlineShopCMS.Areas.Identity.Data
+@model IEnumerable<OnlineShopUserViewModel> 
+
+@{
+    ViewData["Title"] = "ListUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>帳戶列表</h1>
+
+<div class="container">
+    <p class="row justify-content-end" style="margin-bottom:8px;">
+        <a class="btn btn-secondary btn-sm" style="padding-left:56px;padding-right:56px;" asp-action="ListRoles">角色列表</a>
+    </p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User.RegistrationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.RegistrationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    <a class="btn btn-danger btn-sm" asp-action="DeleteUser" asp-route-id="@item.User.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "Dashborad";
+}
+
+<h1>儀錶板</h1>
+
+<hr />
+
+<div class="row">
+    <div class="col-4">
+        <div class="card shadow-sm rounded">
+            <h5 class="card-header">使用者性別比</h5>
+            <div class="card-body">
+                <canvas id="example" style="position: relative" height="180"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-8">
+        <div class="card shadow-sm rounded">
+            <h5 class="card-header">使用者總數</h5>
+            <div class="card-body">
+                <canvas id="example1" style="position: relative" height="180"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<p></p>
+<div>
+    <div class="card shadow-sm rounded">
+        <h5 class="card-header">營業收入</h5>
+        <div class="card-body">
+            <canvas id="example2" style="position: relative" height="180"></canvas>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+<script>
+    var userlabel = @Html.Raw(ViewBag.mylabel);
+    var userdata = @Html.Raw(ViewBag.mydata);
+
+    var ctx = document.getElementById("example"),
+        example = new Chart(ctx, {
+            // 參數設定[註1]
+            type: "doughnut", // 圖表類型
+            data: {
+                labels: userlabel, // 標題
+                datasets: [{
+                    data: userdata, // 資料
+                    backgroundColor: [ // 背景色
+                        "SkyBlue",
+                        "Pink",
+                        "Silver"
+                    ],
+                    borderWidth: 1 // 外框寬度
+                }]
+            },
+            options: {
+                maintainAspectRatio: false, // 固定長寬比
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'left',
+                        boxWidth: 80
+                    }
+                }
+            }
+        });
+
+    var ctx1 = document.getElementById("example1"),
+        example1 = new Chart(ctx1, {
+            type: "line", // 圖表類型
+            data: {
+                labels: ['July', 'August', 'Setember', 'October', 'November', 'December'], // 標題
+                datasets: [{
+                    fill: true,
+                    label: "# Number of Users", // 標籤
+                    data: [2, 3, 8, 9, 11, 13], // 資料
+                    backgroundColor: [  // 背景色
+                        "MediumAquaMarine"
+                    ],
+                    borderColor: [      // 邊線顏色
+                        "MediumAquaMarine"
+                    ],
+                    pointBackgroundColor: [  // 標點顏色
+                        "MediumAquaMarine"
+                    ]
+                }]
+            },
+            options: {
+                maintainAspectRatio: false, // 固定長寬比
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        boxWidth: 80
+                    }
+                }
+            }
+        });
+
+    var ctx2 = document.getElementById("example2"),
+        example2 = new Chart(ctx2, {
+            type: "bar", // 圖表類型
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'Setember', 'October', 'November', 'December'], // 標題
+                datasets: [{
+                    fill: true,
+                    label: "# Sum of business", // 標籤
+                    data: [12360, 14910, 15620, 12360, 8150, 22330, 27620, 25680, 21770, 19620, 0, 0], // 資料
+                    backgroundColor: [  // 背景色
+                        "Plum"
+                    ],
+                    borderColor: [      // 邊線顏色
+                        "Violet"
+                    ]
+                }]
+            },
+            options: {
+                maintainAspectRatio: false, // 固定長寬比
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        boxWidth: 80
+                    }
+                }
+            }
+        });
+   
+</script>

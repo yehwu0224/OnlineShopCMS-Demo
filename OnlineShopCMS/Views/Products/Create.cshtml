@@ -1,0 +1,167 @@
+﻿@model OnlineShopCMS.Models.Product
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Item</h4>
+<hr />
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row">
+
+        <div class="col-8">
+            <div class="row">
+                <div class="col-8">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label class="control-label">Category</label>
+                        <select class="form-control" asp-for="CategoryId" asp-items="ViewBag.Categories"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control" style="height:150px"></textarea>
+                        <span asp-validation-for="Description" class="text-danger" id="editor01"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Image" class="control-label"></label>
+                        <input type="file" name="myimg" id="myimg" class="form-control-file">
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img id="preview" style="max-height:200px;" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Stock" class="control-label"></label>
+                <input asp-for="Stock" class="form-control" />
+                <span asp-validation-for="Stock" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <textarea asp-for="Content" class="form-control editor" id="editor"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    
+    <script>
+    ClassicEditor
+				.create( document.querySelector( '.editor' ), {
+					
+				toolbar: {
+					items: [
+						'heading','|','bold','italic','link','bulletedList','numberedList','|',
+						'alignment','outdent','indent','|','fontSize','fontColor','|',
+						'imageUpload','blockQuote','insertTable','mediaEmbed','undo','redo'
+					]
+				},
+				language: 'en',
+				image: {
+					toolbar: [
+						'imageTextAlternative',
+						'imageStyle:inline',
+						'imageStyle:block',
+						'imageStyle:side'
+					]
+				},
+				table: {
+					contentToolbar: [
+						'tableColumn',
+						'tableRow',
+						'mergeTableCells'
+					]
+				},
+					licenseKey: '',
+					
+
+				} )
+				.then( editor => {
+					window.editor = editor;
+				} )
+				.catch( error => {
+					console.error( 'Oops, something went wrong!' );
+					console.error( error );
+				} );
+		
+    </script>
+    <script>
+        $('#myimg').on('change', function (e) {
+            const file = this.files[0];
+            const objectURL = URL.createObjectURL(file);    // 使用 createObjectURL 產生圖片url
+
+            $('#preview').attr('src', objectURL);
+        });
+    </script>
+
+}
+
+<style>
+    /*Textbox*/
+    .ck-editor__editable {
+        height: 300px;
+    }
+    /*Toolbar*/
+    .ck-editor__top {
+    }
+</style>
+

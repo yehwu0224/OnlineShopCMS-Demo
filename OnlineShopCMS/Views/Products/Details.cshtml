@@ -1,0 +1,57 @@
+﻿@model OnlineShopCMS.Models.DetailViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<p></p>
+<div>
+    <div class="row">
+        <div class="col-5 mx-auto">
+            <img src="@Html.DisplayFor(model => model.imgsrc)" class="mx-auto" style="max-height:400px;" />
+        </div>
+
+        <div class="col-7">
+            <div class="row">
+                <div class="col">
+                    <p class="alert-light m-0">@Html.DisplayNameFor(model => model.product.Name)</p>
+                    <h3>@Html.DisplayFor(model => model.product.Name)</h3>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p class="alert-light m-0">@Html.DisplayNameFor(model => model.product.Description)</p>
+                    <pre>@Html.DisplayFor(model => model.product.Description)</pre>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <p>@Html.DisplayNameFor(model => model.product.Price):</p>
+                    <h6>@Html.DisplayFor(model => model.product.Price)</h6>
+                </div>
+                <div class="col">
+                    <p>@Html.DisplayNameFor(model => model.product.Stock):</p>
+                    <h6>@Html.DisplayFor(model => model.product.Stock)</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="row">
+        <div class="col">
+            <p class="alert-light m-0">@Html.DisplayNameFor(model => model.product.Content)</p>
+            @Html.Raw(Model.product.Content)
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.product.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,125 @@
+﻿@model PaginatedList<OnlineShopCMS.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>商品列表</h1>
+
+
+
+<div style="margin-bottom:8px;">
+    <div class="row">
+        <div class="row col-10 justify-content-end">
+            <form asp-action="Index" class="col-4 ">
+                <div class="input-group input-group-sm ">
+                    <input class="form-control" type="text" placeholder="Name" name="searchString" />
+                    <input class="btn btn-sm btn-primary" type="submit" value="Search" />
+                </div>
+            </form>
+        </div>
+        <div class="col-2">
+            <p class="row justify-content-end">
+                <a class="btn btn-primary btn-sm" style="padding-left:56px;padding-right:56px;" asp-action="Create">新增項目</a>
+            </p>
+        </div>
+    </div>
+
+</div>
+
+<div class="" style="min-height:45vh">
+    <table class="table table-index">
+        <thead>
+            <tr>
+                <th class="name">
+                    商品名稱
+                </th>
+                <th class="description">
+                    類別
+                </th>
+                <th class="price">
+                    單價
+                </th>
+                <th class="stock">
+                    庫存
+                </th>
+                <th class="control"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @if (item.Stock > 0)
+                        {
+                            @Html.Raw("<span class=" + "\" badge bg-success text-white \"" + ">在庫中</span>")
+                        }
+                        else
+                        {
+                            @Html.Raw("<span class=" + "\" badge bg-warning text-dark \"" + ">缺貨中</span>")
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-light btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a class="btn btn-light btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a class="btn btn-light btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<div class="d-flex justify-content-center">
+    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex - 1)" asp-route-currentFilter="@ViewData["CurrentFilter"]" class="btn btn-default @prevDisabled">Previous</a>
+    <a asp-action="Index" asp-route-pageNumber="@(Model.PageIndex + 1)" asp-route-currentFilter="@ViewData["CurrentFilter"]" class="btn btn-default @nextDisabled">Next</a>
+</div>
+
+
+
+<style>
+    table.table-index {
+        table-layout: fixed;
+    }
+
+    .name {
+        width: 40%;
+    }
+
+    .description {
+        width: 20%;
+    }
+
+    .overflow-text {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+    }
+
+    .price, .stock {
+        width: 10%;
+    }
+
+    .control {
+        width: auto;
+    }
+</style>

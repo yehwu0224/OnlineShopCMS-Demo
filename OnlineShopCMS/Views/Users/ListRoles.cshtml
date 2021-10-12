@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+@{
+    ViewData["Title"] = "RoleList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>角色列表</h1>
+
+<div class="container">
+    <p class="row justify-content-end" style="margin-bottom:8px;">
+        <a class="btn btn-primary btn-sm" style="padding-left:56px;padding-right:56px;" asp-action="CreateRole">+ 新增角色</a>
+    </p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    <a class="btn btn-light btn-sm" style="padding-left:20px;padding-right:20px;" asp-action="EditRole" asp-route-id="@item.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
